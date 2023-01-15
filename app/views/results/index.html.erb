@@ -1,8 +1,5 @@
 <%= render 'partials/form_input' %>
 
-<h3>Результаты поиска по запросу <em><%= params[:query]%></em></h3>
-<% @search_results.each do |result| %>
-  <h4><%= link_to result.name, result %></h4>
-  <div><%= result.information.html_safe %></div>
-  <hr>
-<% end %>
+<br>
+<h4>Время поиска pg_search: <%= @time_search_pg_search %></h4>
+<h4>Время поиска через LIKE: <%= @time_search_pg_search2 %></h4>

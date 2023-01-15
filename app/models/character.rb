@@ -1,5 +1,15 @@
 class Character < ApplicationRecord
-  include PgSearch
+  include PgSearch::Model
   validates :name, :information, presence: true
-  pg_search_scope :search_everywhere, against: [:name, :information]
+
+  scope :ft_search, -> (search) {where("(to_tsvector('english', information) @@ to_tsquery(?))", search)}
+
+  pg_search_scope :search_information,
+                  against: :information,
+                  using: {
+                    tsearch:{
+                      dictionary: 'english',
+                      tsvector_column: 'searchable'
+                    }
+                  }
 end

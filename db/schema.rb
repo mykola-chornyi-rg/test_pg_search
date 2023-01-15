@@ -17,11 +17,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_12_191644) do
   create_table "characters", force: :cascade do |t|
     t.string "name", null: false
     t.text "information", null: false
-    t.string "searchable_type"
-    t.bigint "searchable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["searchable_type", "searchable_id"], name: "index_characters_on_searchable"
+    t.index "to_tsvector('english'::regconfig, information)", name: "characters_keywords_index", using: :gin
   end
 
 end
