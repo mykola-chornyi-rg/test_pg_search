@@ -1,0 +1,12 @@
+<%= form_tag results_path, method: :get, role: 'search' do %>
+  <%= text_field_tag :query, params[:query] %>
+  <%= submit_tag "Искать", name: nil %>
+<% end %>
+
+
+<h3>Результаты поиска по запросу <em><%= params[:query]%></em></h3>
+<% @search_results.each do |result| %>
+  <h4><%= link_to result.name, result %></h4>
+  <div><%= result.information.html_safe %></div>
+  <hr>
+<% end %>
